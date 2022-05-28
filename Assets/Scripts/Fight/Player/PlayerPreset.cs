@@ -1,17 +1,18 @@
 ﻿using System;
+using Fight.Player.Collection;
 using UnityEngine;
 
 namespace Fight.Player
 {
-    [Serializable]
     public class PlayerPreset
     {
-        [SerializeField] public string CharacterId;
-        [SerializeField] public int level;
+        public PlayerItem Player;
+        public int Level;
 
-        public PlayerPreset(string characterId)
+        public PlayerPreset(PlayerItem player, int level)
         {
-            CharacterId = characterId;
+            Player = player;
+            Level = level;
         }
     }
 }

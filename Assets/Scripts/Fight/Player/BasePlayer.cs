@@ -2,22 +2,7 @@
 
 namespace Fight.Player
 {
-    public abstract class PlayerWrapper : MonoBehaviour, IPlayer
-    {
-        [SerializeField] private PlayerPreset preset;
-
-        public PlayerPreset GetPreset()
-        {
-            return preset;
-        }
-
-        public abstract int GetCurrentHealth();
-        public abstract int GetMaxHealth();
-        public abstract void Attack();
-        public abstract bool Hit(int damage);
-    }
-
-    class PlayerWrapperImpl : PlayerWrapper
+    internal class BasePlayer : IPlayer
     {
         private int health = -1;
 
@@ -32,29 +17,43 @@ namespace Fight.Player
         private const float DamageMultiplier = 0.5f;
         private const float HealthMultiplier = 0.25f;
 
-        public override int GetCurrentHealth()
+
+        private PlayerPreset preset;
+
+        public BasePlayer(PlayerPreset preset)
+        {
+            this.preset = preset;
+        }
+
+
+        public int GetCurrentHealth()
         {
             return health >= 0 ? health : health = GetMaxHealth();
         }
 
-        public override int GetMaxHealth()
+        public int GetMaxHealth()
         {
-            return GetPreset().level * health;
+            return GetPreset().Level * health;
         }
 
-        public override void Attack()
+        public PlayerPreset GetPreset()
+        {
+            return preset;
+        }
+
+        public void Attack()
         {
             throw new System.NotImplementedException();
         }
 
-        public override bool Hit(int damage)
+        public bool Hit(int damage)
         {
             throw new System.NotImplementedException();
         }
 
         private int GetBaseHealth()
         {
-            return (int) (HealthMultiplier * GetPreset().level * BaseHealth);
+            return (int) (HealthMultiplier * GetPreset().Level * BaseHealth);
         }
 
         private int GetDamage()
@@ -71,12 +70,12 @@ namespace Fight.Player
 
         private int GetLeveledDamage()
         {
-            return (int) (BaseDamage * GetPreset().level * DamageMultiplier);
+            return (int) (BaseDamage * GetPreset().Level * DamageMultiplier);
         }
 
         private float GetCriticalChance()
         {
-            return BaseCriticalChance * GetPreset().level;
+            return BaseCriticalChance * GetPreset().Level;
         }
     }
 }
