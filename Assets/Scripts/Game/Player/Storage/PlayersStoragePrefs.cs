@@ -17,7 +17,7 @@ namespace Game.Player.Storage
             return collection ??= FindObjectOfType<PlayersCollectionWrapper>();
         }
 
-        private SelectedPlayers? savedPlayers;
+        [CanBeNull] private SelectedPlayers savedPlayers;
 
         public override SelectedPlayers GetSelectedPlayers()
         {
@@ -32,17 +32,38 @@ namespace Game.Player.Storage
         private SelectedPlayers SaveSelectedPlayers(SelectedPlayers players)
         {
             if (players.First == null && players.Second == null)
-                throw new ArgumentException("First and second player not selected. Programmer is stupid");
+                players = GenerateStartupPlayers();
             PlayerPrefs.GetString(FirstPlayerId, players.First == null ? "" : players.First.Player.characterId);
             PlayerPrefs.GetString(SecondPlayerId, players.Second == null ? "" : players.Second.Player.characterId);
             return players;
         }
 
+        private SelectedPlayers GenerateStartupPlayers()
+        {
+            var players = new SelectedPlayers(
+                first: LoadPlayer(GetCollection().GetPlayers().First()),
+                second: null
+            );
+            return players;
+        }
+
         private SelectedPlayers LoadSelectedPlayers()
         {
-            return new SelectedPlayers(
+            var players = new SelectedPlayers(
                 first: LoadPlayer(FirstPlayerId),
                 second: LoadPlayer(SecondPlayerId)
+            );
+            if (players.First == null && players.Second == null)
+                players = GenerateStartupPlayers();
+            return players;
+        }
+
+        private PlayerPreset LoadPlayer(PlayerItem player)
+        {
+            var level = PlayerPrefs.GetInt(CharacterLevel + player.characterId, 1);
+            return new PlayerPreset(
+                player: player,
+                level: level
             );
         }
 
@@ -52,12 +73,8 @@ namespace Game.Player.Storage
             var id = PlayerPrefs.GetString(tag, "");
             if (id == "")
                 return null;
-            var level = PlayerPrefs.GetInt(CharacterLevel + id, 1);
             var item = GetCollection().GetPlayerById(id);
-            return new PlayerPreset(
-                player: item, 
-                level: level
-            );
+            return LoadPlayer(item);
         }
 
 

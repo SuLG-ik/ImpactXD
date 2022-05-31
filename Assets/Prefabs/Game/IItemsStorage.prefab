@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4494443936431432130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4494443936431432128}
+  - component: {fileID: 4494443936431432129}
+  m_Layer: 0
+  m_Name: IItemsStorage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4494443936431432128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4494443936431432130}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4494443936431432129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4494443936431432130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7217d830bfaf4fb3bafc69e4a1b291b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - id: acquaint_fate
+    title: "\u0421\u0443\u0434\u044C\u0431\u043E\u043D\u043E\u0441\u043D\u044B\u0435
+      \u0432\u0441\u0442\u0440\u0435\u0447\u0438"
+    inventoryIcon: {fileID: 5568217244924487708, guid: 28af5d2034e273f4ea0334f179b510b6, type: 3}
+    generalType: 0
+    startCount: 0
+  - id: primogem
+    title: "\u041A\u0430\u043C\u0435\u043D\u044C \u0438\u0441\u0442\u043E\u043A\u0430"
+    inventoryIcon: {fileID: 3444204872483580002, guid: 264568c754146014888bc08271bd59ac, type: 3}
+    generalType: 0
+    startCount: 0
+  - id: original_resin
+    title: "\u041F\u0435\u0440\u0432\u043E\u0440\u043E\u0434\u043D\u0430\u044F \u0441\u043C\u043E\u043B\u0430"
+    inventoryIcon: {fileID: -7213742777133032008, guid: 197a3c03ac868674095f537be63adccc, type: 3}
+    generalType: 0
+    startCount: 160
+  - id: mora
+    title: "\u041C\u043E\u0440\u0430"
+    inventoryIcon: {fileID: 21300000, guid: d605a35dd57dce849875e4d5aa945ee8, type: 3}
+    generalType: 0
+    startCount: 1000

@@ -6,9 +6,9 @@ namespace Game.Inventory
 {
     public interface ItemsStorage
     {
-        public InventoryItem[] GetItems();
+        public InventoryMeta[] GetItems();
         
-        public InventoryItem GetItem(string itemId);
+        public InventoryMeta GetItem(string itemId);
         
     }
 }

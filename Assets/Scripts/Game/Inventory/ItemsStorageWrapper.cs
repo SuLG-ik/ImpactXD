@@ -7,14 +7,14 @@ namespace Game.Inventory
 {
     public class ItemsStorageWrapper : MonoBehaviour, ItemsStorage
     {
-        [SerializeField] private InventoryItem[] items;
+        [SerializeField] private InventoryMeta[] items;
 
-        public InventoryItem[] GetItems()
+        public InventoryMeta[] GetItems()
         {
             return items;
         }
 
-        public InventoryItem GetItem(string itemId)
+        public InventoryMeta GetItem(string itemId)
         {
             return items.First(item => item.id == itemId);
         }

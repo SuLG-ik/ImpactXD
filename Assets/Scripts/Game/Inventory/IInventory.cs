@@ -5,7 +5,7 @@ namespace Game.Inventory
 {
     public interface IInventory
     {
-        public Item[] GetList(InventoryItem.GeneralType? generalType = null);
+        public Item[] GetList(InventoryMeta.GeneralType? generalType = null);
 
         public int CountItems(string itemId);
 
@@ -20,10 +20,10 @@ namespace Game.Inventory
         
         public struct Item
         {
-            public InventoryItem Meta;
+            public InventoryMeta Meta;
             public int Count;
 
-            public Item(InventoryItem meta, int count)
+            public Item(InventoryMeta meta, int count)
             {
                 Meta = meta;
                 Count = count;

@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using Fight.Enemies;
+using Fight.Player.Collection;
+using Random = UnityEngine.Random;
 
 namespace Fight.Player
 {
@@ -15,8 +18,7 @@ namespace Fight.Player
         private const float BaseCriticalChance = 0.05f;
 
         private const float DamageMultiplier = 0.5f;
-        private const float HealthMultiplier = 0.25f;
-
+        private const float HealthMultiplier = 0.36f;
 
         private PlayerPreset preset;
 
@@ -25,7 +27,6 @@ namespace Fight.Player
             this.preset = preset;
         }
 
-
         public int GetCurrentHealth()
         {
             return health >= 0 ? health : health = GetMaxHealth();
@@ -33,7 +34,7 @@ namespace Fight.Player
 
         public int GetMaxHealth()
         {
-            return GetPreset().Level * health;
+            return (int) (GetPreset().Level * BaseHealth * HealthMultiplier);
         }
 
         public PlayerPreset GetPreset()
@@ -41,14 +42,33 @@ namespace Fight.Player
             return preset;
         }
 
-        public void Attack()
+        public bool Attack(IEnemy enemy)
         {
-            throw new System.NotImplementedException();
+            return enemy.Hit(GetDamage());
         }
 
         public bool Hit(int damage)
         {
-            throw new System.NotImplementedException();
+            health = Math.Max(0, health - damage);
+            SendUpdateHealth(-damage, health);
+            return health <= 0;
+        }
+
+        public void RegisterUpdateHealthListener(UpdateHealth listener)
+        {
+            _updateHealth += listener;
+        }
+
+        private event UpdateHealth _updateHealth;
+
+        public void UnregisterUpdateHealthListener(UpdateHealth listener)
+        {
+            _updateHealth -= listener;
+        }
+
+        private void SendUpdateHealth(int delta, int newHealth)
+        {
+            _updateHealth?.Invoke(delta, newHealth);
         }
 
         private int GetBaseHealth()

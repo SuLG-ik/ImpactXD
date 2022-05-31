@@ -1,33 +1,94 @@
-﻿using Fight.Player.Collection;
+﻿using System;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using Fight.Player.Collection;
+using JetBrains.Annotations;
+using Lifecycle;
+using UnityEditor.Presets;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
-namespace Fight.Player
+namespace Fight.Player.Field
 {
-    public class PlayerField : MonoBehaviour
+    public class PlayerField : CompatComponent
     {
-        [SerializeField] private PlayerPreview preview;
+        [SerializeField] private EntityPreview preview;
 
         private IPlayer player;
 
+        [CanBeNull]
+        public IPlayer GetPlayer()
+        {
+            return player;
+        }
+
         private IPlayer CreatePlayer(PlayerPreset preset)
         {
-            return player ??= new BasePlayer(preset);
+            return new BasePlayer(preset);
         }
 
+        [SerializeField] private Button button;
 
-        public IPlayer SetPlayer(PlayerPreset player)
+        [CanBeNull]
+        public IPlayer InitializeField([CanBeNull] PlayerPreset preset)
         {
-            var playerItem = player.Player;
-            preview.SetImage(playerItem.characterMiniSprite);
-            preview.SetPlayerName(playerItem.characterName);
-            preview.SetLevel(player.Level);
-            return CreatePlayer(player);
+            if (preset == null)
+            {
+                preview.SetEmpty(true);
+                return null;
+            }
+
+            player = CreatePlayer(preset);
+            SetPreview(preset);
+            SetHealth(player);
+            return player;
         }
 
-        private void Update()
+        private void SetPreview(PlayerPreset preset)
         {
-            if (player != null)
-                preview.SetHealth(player.GetCurrentHealth(), player.GetMaxHealth());
+            preview.SetEmpty(false);
+            preview.SetImage(preset.Player.characterMiniSprite);
+            preview.SetEntityName(preset.Player.characterName);
+            preview.SetLevel(preset.Level);
         }
+
+        private void SetHealth(IPlayer player)
+        {
+            void UpdateHealth(int delta, int health)
+            {
+                preview.SetHealth(health, player.GetMaxHealth());
+            }
+
+            preview.SetHealth(player.GetCurrentHealth(), player.GetMaxHealth());
+            player.RegisterUpdateHealthListener(UpdateHealth);
+            GetLifecycle().RegisterEventListener((newEvent) =>
+            {
+                if (newEvent == ILifecycle.Event.Destroy)
+                    player.UnregisterUpdateHealthListener(UpdateHealth);
+            });
+        }
+
+        public async UniTask<PlayerField> HandleClick()
+        {
+            await button.OnClickAsync();
+            return this;
+        }
+        
+        public void OnAttack()
+        {
+            preview.OnAttack();
+        }
+
+        public void OnHit()
+        {
+            preview.OnHit();
+        }
+
+        public void OnDie()
+        {
+            preview.OnDie();
+        }
+        
     }
 }

@@ -13,7 +13,7 @@ namespace Game.Inventory
             return inMemoryInventory ??= new InMemoryInventory(itemsStorage);
         }
         
-        public IInventory.Item[] GetList(InventoryItem.GeneralType? generalType = null)
+        public IInventory.Item[] GetList(InventoryMeta.GeneralType? generalType = null)
         {
             return GetInMemoryInventory().GetList();
         }

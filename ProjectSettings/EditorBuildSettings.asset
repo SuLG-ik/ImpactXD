@@ -11,4 +11,49 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: b6d0fb7415a627a4bae45169f72c3a10
+  - enabled: 1
+    path: Assets/Scenes/Levels.unity
+    guid: 67909489fa32384478e54b212ac308d7
+  - enabled: 1
+    path: Assets/Scenes/Fight1.unity
+    guid: 4ee05dd1945d4f247a45455a7c45e0cb
+  - enabled: 1
+    path: Assets/Scenes/Lose.unity
+    guid: 953201d4912c7eb49bbbd1883dbd6a37
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: 0095b9f159bbc4b4180f84582680a409
+  - enabled: 1
+    path: Assets/Scenes/Fight2.unity
+    guid: dd2d5f10495086f4fb9074fb8c5ccf1a
+  - enabled: 1
+    path: Assets/Scenes/Fight3.unity
+    guid: 2b77a4a457d74c2499cdf6b118833904
+  - enabled: 1
+    path: Assets/Scenes/Fight4.unity
+    guid: d02877f5b9747f940bdfa9ae17c4670d
+  - enabled: 1
+    path: Assets/Scenes/Fight5.unity
+    guid: 6ce5db5fc5f9d034195405eb66e2b6a5
+  - enabled: 1
+    path: Assets/Scenes/Fight6.unity
+    guid: cdfb51f5464fe5d468bb8e6d068d69d9
+  - enabled: 1
+    path: Assets/Scenes/Fight7.unity
+    guid: be6447b1228481543b394f30dffc50a4
+  - enabled: 1
+    path: Assets/Scenes/Fight8.unity
+    guid: c45a62e4480836e42bddf7f91f0426cd
+  - enabled: 1
+    path: Assets/Scenes/Fight9.unity
+    guid: 90eb98f08094e5b4bbbf806f4721ac23
+  - enabled: 1
+    path: Assets/Scenes/Fight10.unity
+    guid: 8c8fba469a44d5641b05f99a014b6679
+  - enabled: 1
+    path: Assets/Scenes/Fight11.unity
+    guid: 54a8c09ebb3e30146bb9f7a3a7e9c5c1
+  - enabled: 1
+    path: Assets/Scenes/Fight12.unity
+    guid: bfd5e8ec67c8509459cc2aa598150270
   m_configObjects: {}

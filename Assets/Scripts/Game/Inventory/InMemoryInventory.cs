@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Fight.Player.Collection;
+using UnityEngine;
 
 namespace Game.Inventory
 {
     public class InMemoryInventory : IInventory
     {
-        private readonly Dictionary<string, IInventory.Item> inventory = new Dictionary<string, IInventory.Item>();
+        private Dictionary<string, IInventory.Item> inventory;
 
         private readonly Dictionary<string, IInventory.OnItemUpdate> listeners =
             new Dictionary<string, IInventory.OnItemUpdate>();
 
-        private ItemsStorage itemsStorage;
+        private readonly ItemsStorage itemsStorage;
+
+        private Dictionary<string, IInventory.Item> GetInventory()
+        {
+            return inventory ??= LoadItems();
+        }
 
         public InMemoryInventory(ItemsStorage itemsStorage)
         {
@@ -19,50 +26,72 @@ namespace Game.Inventory
         }
 
 
-        public IInventory.Item[] GetList(InventoryItem.GeneralType? generalType = null)
+        public IInventory.Item[] GetList(InventoryMeta.GeneralType? generalType = null)
         {
-            if (generalType == null) return inventory.Values.ToArray();
-            return inventory.Values.Where((item) => item.Meta.generalType == generalType).ToArray();
+            if (generalType == null) return GetInventory().Values.ToArray();
+            return GetInventory().Values.Where((item) => item.Meta.generalType == generalType).ToArray();
         }
 
         public int CountItems(string itemId)
         {
-            var exists = inventory.TryGetValue(itemId, out IInventory.Item item);
+            var exists = GetInventory().TryGetValue(itemId, out var item);
             return exists ? item.Count : 0;
         }
 
         public bool RemoveItems(string itemId, int count = 1)
         {
-            var exists = inventory.TryGetValue(itemId, out var item);
+            var exists = GetInventory().TryGetValue(itemId, out var item);
             if (!exists || item.Count < count) return false;
             item.Count -= count;
             SendUpdateListener(item);
-            inventory[itemId] = item;
+            GetInventory()[itemId] = item;
+            SaveItem(item);
             return true;
         }
 
         public bool AddItems(string itemId, int count = 1)
         {
-            var exists = inventory.TryGetValue(itemId, out var item);
+            var exists = GetInventory().TryGetValue(itemId, out var item);
             if (!exists)
                 item = new IInventory.Item(itemsStorage.GetItem(itemId), count);
             else
                 item.Count += count;
             SendUpdateListener(item);
-            inventory[itemId] = item;
+            GetInventory()[itemId] = item;
+            SaveItem(item);
             return true;
+        }
+
+        private IInventory.Item LoadItem(InventoryMeta meta)
+        {
+            var count = PlayerPrefs.GetInt("inventory_" + meta.id + "_count", meta.startCount);
+            return new IInventory.Item(
+                meta: meta,
+                count: count
+            );
+        }
+
+        private Dictionary<string, IInventory.Item> LoadItems()
+        {
+            return itemsStorage.GetItems().ToDictionary(keySelector: meta => meta.id, elementSelector: LoadItem);
+        }
+
+        private void SaveItem(IInventory.Item item)
+        {
+            PlayerPrefs.SetInt("inventory_" + item.Meta.id + "_count", item.Count);
+            PlayerPrefs.Save();
         }
 
         public IInventory.Item GetItem(string itemId)
         {
-            var exists = inventory.TryGetValue(itemId, out var item);
+            var exists = GetInventory().TryGetValue(itemId, out var item);
             if (!exists)
             {
                 item = new IInventory.Item(itemsStorage.GetItem(itemId), 0);
-                inventory[itemId] = item;
+                GetInventory()[itemId] = item;
             }
 
-            return inventory[itemId];
+            return GetInventory()[itemId];
         }
 
         public void RegisterItemUpdateListener(string itemId, IInventory.OnItemUpdate listener)

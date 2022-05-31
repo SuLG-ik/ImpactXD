@@ -8,5 +8,6 @@ namespace Game.Player.Storage
         public SelectedPlayers GetSelectedPlayers();
 
         public abstract void SetSelectedPlayer(SelectedPlayers players);
+
     }
 }

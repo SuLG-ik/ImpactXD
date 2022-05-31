@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.Player.Storage
 {
-    public struct SelectedPlayers
+    public class SelectedPlayers
     {
         [CanBeNull] public readonly PlayerPreset First;
         [CanBeNull] public readonly PlayerPreset Second;
