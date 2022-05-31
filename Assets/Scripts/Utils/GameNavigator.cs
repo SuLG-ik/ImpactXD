@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using Fight.Player.Collection;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,17 +7,17 @@ namespace Utils
 {
     public class GameNavigator : MonoBehaviour, INavigator
     {
-        [SerializeField] private SceneAsset mainMenuScene;
-        [SerializeField] private SceneAsset gameScene;
+        [SerializeField] private string mainMenuScene;
+        [SerializeField] private string gameScene;
 
         public void NavigateToMainMenu()
         {
-            LoadScene(mainMenuScene);
+            Navigate(mainMenuScene);
         }
 
         public void NavigateToGame()
         {
-            LoadScene(gameScene);
+            Navigate(gameScene);
         }
 
         public void Navigate(string scene)
@@ -24,9 +25,11 @@ namespace Utils
             SceneManager.LoadScene(scene);
         }
 
-        public void NavigateWin(int primogems)
+        public void NavigateWin(int primogems, int mora)
         {
             PlayerPrefs.SetInt("last_add_gems", primogems);
+            PlayerPrefs.SetInt("last_add_mora", mora);
+            PlayerPrefs.Save();
             Navigate("Scenes/Win");
         }
 
@@ -34,11 +37,5 @@ namespace Utils
         {
             Navigate("Scenes/Lose");
         }
-
-        private void LoadScene(SceneAsset scene)
-        {
-            SceneManager.LoadScene(AssetDatabase.GetAssetPath(scene));
-        } 
-        
     }
 }

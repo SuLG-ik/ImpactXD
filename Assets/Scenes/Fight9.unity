@@ -1105,6 +1105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primogems: 20
+  reshin: 20
+  mora: 900
   fightNumber: 9
   playersList: {fileID: 985886722}
   enemiesList: {fileID: 2136060639}

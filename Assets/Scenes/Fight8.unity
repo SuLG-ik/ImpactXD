@@ -991,7 +991,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d9cd5f57a6e476db10996824d756d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primogems: 20
+  primogems: 40
+  reshin: 20
+  mora: 800
   fightNumber: 8
   playersList: {fileID: 2098572187}
   enemiesList: {fileID: 2136060639}

@@ -16,8 +16,9 @@ namespace Fight
 {
     public class Fight : FightWrapper
     {
-        [SerializeField] private int primogems;
+        [SerializeField] private int primogems = 20;
         [SerializeField] private int reshin = 20;
+        [SerializeField] private int mora = 100;
         [SerializeField] private int fightNumber = 1;
 
         [SerializeField] private PlayersListWrapper playersList;
@@ -65,9 +66,9 @@ namespace Fight
         private void AttackByEnemy()
         {
             var enemyField = GetRandomAliveEnemy();
-            if (enemyField == null) throw new Exception("null enemy");
+            if (enemyField == null) throw new NullReferenceException("null enemy");
             var playerField = GetRandomAlivePlayer();
-            if (playerField == null) throw new Exception("null player");
+            if (playerField == null) throw new NullReferenceException("null player");
             enemyField.OnAttack();
             if (enemyField.GetEnemy()?.Attack(playerField.GetPlayer()) == true)
             {
@@ -82,9 +83,9 @@ namespace Fight
         private async UniTask AttachByPlayer()
         {
             var playerField = await playersList.HandleFieldClick();
-            if (playerField == null) throw new Exception("null player");
+            if (playerField == null) throw new NullReferenceException("null player");
             var enemyField = await enemiesList.HandleFieldClick();
-            if (enemyField == null) throw new Exception("null enemy");
+            if (enemyField == null) throw new NullReferenceException("null enemy");
             playerField.OnAttack();
             if (playerField.GetPlayer()?.Attack(enemyField.GetEnemy()) == true)
             {
@@ -119,13 +120,15 @@ namespace Fight
 
         private void Win()
         {
-            var isFightCompleted = PlayerPrefs.GetInt("is_fight_completed", 0) == 1;
+            var isFightCompleted = PlayerPrefs.GetInt($"is_fight_completed_{GetNumber()}", 0) == 1;
             var primogems = isFightCompleted ? 5 : this.primogems;
+            var mora = isFightCompleted ? this.mora / 4 : this.mora;
             inventory.AddItems("primogem", primogems);
             inventory.AddItems("original_resin", -reshin);
-            PlayerPrefs.SetInt("is_fight_completed", 0);
+            inventory.AddItems("mora", mora);
+            PlayerPrefs.SetInt($"is_fight_completed_{GetNumber()}", 1);
             PlayerPrefs.Save();
-            navigator.NavigateWin(primogems);
+            navigator.NavigateWin(primogems, mora);
         }
 
         private void Lose()

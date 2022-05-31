@@ -7,15 +7,17 @@ namespace Fight.GameOver
 {
     public class Win : MonoBehaviour
     {
-        private int addedPremogems;
+        private int addedPrimogems;
+        private int addedMora;
         [SerializeField] private ValueBar gems;
+        [SerializeField] private ValueBar mora;
 
         private void Start()
         {
-            addedPremogems = PlayerPrefs.GetInt("last_add_gems", 0);
-            gems.SetValue(addedPremogems.ToString());
-            PlayerPrefs.SetInt("is_fight_completed", 1);
-            PlayerPrefs.Save();
+            addedPrimogems = PlayerPrefs.GetInt("last_add_gems", 0);
+            addedMora = PlayerPrefs.GetInt("last_add_mora", 0);
+            gems.SetValue(addedPrimogems.ToString());
+            mora.SetValue(addedMora.ToString());
         }
     }
 }

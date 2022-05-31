@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using Cysharp.Threading.Tasks;
 using Fight.Player.Collection;
 using JetBrains.Annotations;
 using Lifecycle;
-using UnityEditor.Presets;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Fight.Player.Field

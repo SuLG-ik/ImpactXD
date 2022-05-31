@@ -8,8 +8,8 @@ namespace Game.Player.Storage
 {
     public class SelectedPlayers
     {
-        [CanBeNull] public readonly PlayerPreset First;
-        [CanBeNull] public readonly PlayerPreset Second;
+        [CanBeNull] public PlayerPreset First;
+        [CanBeNull] public PlayerPreset Second;
 
         public SelectedPlayers([CanBeNull] PlayerPreset first, [CanBeNull] PlayerPreset second)
         {

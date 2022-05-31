@@ -56,4 +56,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fight12.unity
     guid: bfd5e8ec67c8509459cc2aa598150270
+  - enabled: 1
+    path: Assets/Scenes/Wish.unity
+    guid: 6c8fd50163594784d851344d4fb376c4
+  - enabled: 1
+    path: Assets/Scenes/Players.unity
+    guid: 8572b9eaa4e3c814095c6ae9f31a362a
   m_configObjects: {}

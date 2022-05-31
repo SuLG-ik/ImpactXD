@@ -859,7 +859,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2450937911843420650, guid: 062a1eb3fae0211428ae6d2c5bc3d893, type: 3}
       propertyPath: targetScene
-      value: Fight14
+      value: Fight4
       objectReference: {fileID: 0}
     - target: {fileID: 4799807098669713517, guid: 062a1eb3fae0211428ae6d2c5bc3d893, type: 3}
       propertyPath: m_Name
@@ -1776,7 +1776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2450937911843420650, guid: 062a1eb3fae0211428ae6d2c5bc3d893, type: 3}
       propertyPath: targetScene
-      value: Fight13
+      value: Fight3
       objectReference: {fileID: 0}
     - target: {fileID: 4799807098669713517, guid: 062a1eb3fae0211428ae6d2c5bc3d893, type: 3}
       propertyPath: m_Name

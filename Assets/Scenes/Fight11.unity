@@ -220,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7211571918788969535, guid: 120e417e75ee29246b94c60932d80961, type: 3}
       propertyPath: preset.Level
-      value: 21
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 120e417e75ee29246b94c60932d80961, type: 3}
@@ -529,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7211571918788969535, guid: 120e417e75ee29246b94c60932d80961, type: 3}
       propertyPath: preset.Level
-      value: 21
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 120e417e75ee29246b94c60932d80961, type: 3}
@@ -902,6 +902,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primogems: 20
+  reshin: 20
+  mora: 1100
   fightNumber: 11
   playersList: {fileID: 218461034}
   enemiesList: {fileID: 2136060639}
